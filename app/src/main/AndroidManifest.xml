@@ -20,7 +20,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".temDetailActivity"
+            android:name=".ItemDetailActivity"
             android:label="@string/title_reminderitem_detail"
             android:parentActivityName=".ItemListActivity"
             android:theme="@style/AppTheme.NoActionBar">
@@ -28,6 +28,11 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.author.reminder4v.ItemListActivity" />
         </activity>
+
+        <provider
+            android:name=".database.MyContentProvider"
+            android:authorities="com.example.author.reminder4v.database.MyContentProvider"
+            android:exported="false"></provider>
     </application>
 
 </manifest>

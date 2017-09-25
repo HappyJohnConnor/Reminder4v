@@ -8,9 +8,9 @@ public class ReminderItem {
 
     private String subject;
     private String body;
-    private int id;
+    private String id;
 
-    public ReminderItem(String title, String body, int id) {
+    public ReminderItem(String title, String body,String id) {
         this.subject = title;
         this.body = body;
         this.id = id;
@@ -24,7 +24,7 @@ public class ReminderItem {
         this.body = body;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -36,7 +36,7 @@ public class ReminderItem {
         return body;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 }

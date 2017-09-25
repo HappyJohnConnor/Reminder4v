@@ -10,10 +10,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.author.reminder4v.R;
-import com.example.author.reminder4v.temDetailActivity;
 import com.example.author.reminder4v.ItemDetailFragment;
-import com.example.author.reminder4v.dummy.DummyContent;
+import com.example.author.reminder4v.R;
+import com.example.author.reminder4v.model.ReminderItem;
+import com.example.author.reminder4v.ItemDetailActivity;
 
 import java.util.List;
 
@@ -29,9 +29,9 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderViewHolder> {
 
     Activity activity;
 
-    private final List<DummyContent.DummyItem> mValues;
+    private final List<ReminderItem> mValues;
 
-    public ReminderAdapter(List<DummyContent.DummyItem> items) {
+    public ReminderAdapter(List<ReminderItem> items) {
         mValues = items;
     }
 
@@ -45,8 +45,8 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderViewHolder> {
     @Override
     public void onBindViewHolder(final ReminderViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).id);
-        holder.mContentView.setText(mValues.get(position).content);
+        holder.mSubjectView.setText(mValues.get(position).getSubject());
+        holder.mBodyView.setText(mValues.get(position).getBody());
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,7 +55,7 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderViewHolder> {
                 context = (FragmentActivity) activity;
                 if (mTwoPane) {
                     Bundle arguments = new Bundle();
-                    arguments.putString(ItemDetailFragment.ARG_ITEM_ID, holder.mItem.id);
+                    arguments.putString(ItemDetailFragment.ARG_ITEM_ID, holder.mItem.getId());
                     ItemDetailFragment fragment = new ItemDetailFragment();
                     fragment.setArguments(arguments);
 
@@ -64,8 +64,8 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderViewHolder> {
                             .commit();
                 } else {
                     Context context = v.getContext();
-                    Intent intent = new Intent(context, temDetailActivity.class);
-                    intent.putExtra(ItemDetailFragment.ARG_ITEM_ID, holder.mItem.id);
+                    Intent intent = new Intent(context, ItemDetailActivity.class);
+                    intent.putExtra(ItemDetailFragment.ARG_ITEM_ID, holder.mItem.getId());
 
                     context.startActivity(intent);
                 }

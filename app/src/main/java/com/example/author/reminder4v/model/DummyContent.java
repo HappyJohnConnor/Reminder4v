@@ -10,8 +10,8 @@ import java.util.List;
 public class DummyContent {
     public static final List<ReminderItem> DUMMY_ITEMS = new ArrayList<>();
 
-    public Integer[] id={
-            1,2,3
+    public String[] id={
+            "1", "2", "3"
     };
     public String[] subject = {
             "ほげ", "abc", "abcd"
@@ -20,11 +20,10 @@ public class DummyContent {
             "ほげ", "abc", "abcd"
     };
 
-    public List<ReminderItem> getDumuyItems(){
+    public void getDumuyItems(){
         for(int i=0; i< id.length; i++){
             DUMMY_ITEMS.add(new ReminderItem(subject[i], body[i],id[i]));
         }
-        return DUMMY_ITEMS;
     }
 
 
