@@ -9,18 +9,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.example.author.reminder4v.database.MyContentProvider;
 import com.example.author.reminder4v.database.MyDBHelper;
-import com.example.author.reminder4v.dummy.DummyContent;
 import com.example.author.reminder4v.model.ReminderItem;
 
 public class ItemDetailFragment extends Fragment {
 
     public static final String ARG_ITEM_ID = "item_id";
 
-    private DummyContent.ReminderItem mItem;
     private ReminderItem item;
     private EditText subject_edit;
     private EditText body_edit;
@@ -33,13 +30,6 @@ public class ItemDetailFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
-        if (getArguments().containsKey(ARG_ITEM_ID)) {
-
-            mItem = DummyContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID));
-
-
-        }
     }
 
     @Override
@@ -50,10 +40,10 @@ public class ItemDetailFragment extends Fragment {
         body_edit = (EditText) rootView.findViewById(R.id.body_edit);
         ok_btn = (Button) rootView.findViewById(R.id.ok_btn);
 
-        if (mItem != null) {
+       /*if (mItem != null) {
             ((TextView) rootView.findViewById(R.id.reminderitem_detail)).setText(mItem.details);
             subject_edit.setText(mItem.details);
-        }
+        }*/
         return rootView;
     }
 
@@ -74,7 +64,7 @@ public class ItemDetailFragment extends Fragment {
 
         } else {
             ContentValues contentValues = new ContentValues();
-            contentValues.put(MyDBHelper.COLUMN_TITLE, subject_edit.getText().toString());
+            contentValues.put(MyDBHelper.COLUMN_SUBJECT, subject_edit.getText().toString());
             contentValues.put(MyDBHelper.COLUMN_BODY, body_edit.getText().toString());
             getActivity().getContentResolver().insert(MyContentProvider.CONTENT_URI, contentValues);
             getActivity().navigateUpTo(new Intent(getActivity(), ItemListActivity.class));
