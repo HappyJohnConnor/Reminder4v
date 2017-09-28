@@ -10,8 +10,8 @@ public class ReminderItem {
     private String body;
     private String id;
 
-    public ReminderItem(String title, String body,String id) {
-        this.subject = title;
+    public ReminderItem(String subject, String body,String id) {
+        this.subject = subject;
         this.body = body;
         this.id = id;
     }

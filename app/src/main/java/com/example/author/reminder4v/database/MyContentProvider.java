@@ -43,7 +43,7 @@ public class MyContentProvider extends ContentProvider {
     public Cursor query(@NonNull Uri uri, @Nullable String[] projection, @Nullable String selection, @Nullable String[] selectionArgs, @Nullable String sortOrder) {
         SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();
 
-        queryBuilder.setTables(MyDBHelper.TABLE_RECORD);
+        queryBuilder.setTables(MyDBHelper.TABLE_NAME);
 
         int uriType = uriMatcher.match(uri);
         switch (uriType) {
@@ -76,7 +76,7 @@ public class MyContentProvider extends ContentProvider {
         long id = 0;
         switch (uriType) {
             case REMINDER_RECORD:
-                id = sqlDB.insert(MyDBHelper.TABLE_RECORD, null, values);
+                id = sqlDB.insert(MyDBHelper.TABLE_NAME, null, values);
                 break;
             default:
                 throw new IllegalArgumentException("Unknown URI: " + uri);
@@ -91,7 +91,7 @@ public class MyContentProvider extends ContentProvider {
         int match = uriMatcher.match(uri);
         switch (match) {
             case REMINDER_RECORD_ID:
-                return mDatabase.delete(MyDBHelper.TABLE_RECORD, selection, selectionArgs);
+                return mDatabase.delete(MyDBHelper.TABLE_NAME, selection, selectionArgs);
             default:
                 throw new IllegalArgumentException("invalid uri: " + uri);
         }
@@ -101,4 +101,6 @@ public class MyContentProvider extends ContentProvider {
     public int update(@NonNull Uri uri, @Nullable ContentValues values, @Nullable String selection, @Nullable String[] selectionArgs) {
         return 0;
     }
+
+
 }
