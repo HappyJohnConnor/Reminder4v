@@ -12,16 +12,23 @@ import android.widget.EditText;
 
 import com.example.author.reminder4v.database.MyContentProvider;
 import com.example.author.reminder4v.database.MyDBHelper;
+import com.example.author.reminder4v.database.ReminderRepository;
 import com.example.author.reminder4v.model.ReminderItem;
 
 public class ItemDetailFragment extends Fragment {
 
     public static final String ARG_ITEM_ID = "item_id";
 
-    private ReminderItem item;
+    private ReminderItem mItem;
     private EditText subject_edit;
     private EditText body_edit;
     private Button ok_btn;
+
+    private ReminderRepository mReminderRepository;
+
+    private String strSubject;
+    private String strBody;
+
 
     public ItemDetailFragment() {
     }
@@ -29,6 +36,10 @@ public class ItemDetailFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mReminderRepository = new ReminderRepository(getActivity());
+        if (getArguments().containsKey(ARG_ITEM_ID)) {
+            mItem = mReminderRepository.getReminderItem(getArguments().getString(ARG_ITEM_ID));
+        }
 
     }
 
@@ -40,10 +51,10 @@ public class ItemDetailFragment extends Fragment {
         body_edit = (EditText) rootView.findViewById(R.id.body_edit);
         ok_btn = (Button) rootView.findViewById(R.id.ok_btn);
 
-       /*if (mItem != null) {
-            ((TextView) rootView.findViewById(R.id.reminderitem_detail)).setText(mItem.details);
-            subject_edit.setText(mItem.details);
-        }*/
+        if (mItem != null) {
+            subject_edit.setText(mItem.getSubject());
+            body_edit.setText(mItem.getBody());
+        }
         return rootView;
     }
 
@@ -56,13 +67,15 @@ public class ItemDetailFragment extends Fragment {
                 saveItem();
             }
         });
+        strSubject=subject_edit.getText().toString();
+        strBody=body_edit.getText().toString();
     }
 
     private void saveItem() {
         if (isEmpty(subject_edit) && isEmpty(body_edit)) {
             getActivity().navigateUpTo(new Intent(getActivity(), ItemListActivity.class));
 
-        } else {
+        } {
             ContentValues contentValues = new ContentValues();
             contentValues.put(MyDBHelper.COLUMN_SUBJECT, subject_edit.getText().toString());
             contentValues.put(MyDBHelper.COLUMN_BODY, body_edit.getText().toString());

@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 /**
  * Created by author on 2017/09/25.
@@ -82,7 +83,7 @@ public class MyContentProvider extends ContentProvider {
                 throw new IllegalArgumentException("Unknown URI: " + uri);
         }
         getContext().getContentResolver().notifyChange(uri, null);
-
+        Log.v("id", String.valueOf(id));
         return Uri.withAppendedPath(uri, String.valueOf(id));
     }
 

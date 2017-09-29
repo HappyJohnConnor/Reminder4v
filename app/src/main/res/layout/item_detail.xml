@@ -3,15 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/reminderitem_detail"
-        style="?android:attr/textAppearanceLarge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="16dp"
-        android:textIsSelectable="true"
-        tools:context="com.example.author.reminder4v.ItemDetailFragment" />
-
     <EditText
         android:id="@+id/subject_edit"
         android:layout_width="wrap_content"

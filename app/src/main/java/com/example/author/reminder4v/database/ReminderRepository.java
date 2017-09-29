@@ -48,6 +48,21 @@ public class ReminderRepository {
         return item;
     }
 
+    public ReminderItem getReminderItem(String id){
+        Cursor cursor= queryReminders(MyDBHelper.COLUMN_ID+"=?", new String[]{id});
+
+        try{
+            if (cursor.getCount()==0){
+                return null;
+            }else {
+                cursor.moveToFirst();
+                return getReminderItem(cursor);
+            }
+        }finally {
+            cursor.close();
+        }
+    }
+
     public Cursor queryReminders(String whereClause, String[] whereArgs) {
         Cursor cursor = mDatabase.query(
                 MyDBHelper.TABLE_NAME,

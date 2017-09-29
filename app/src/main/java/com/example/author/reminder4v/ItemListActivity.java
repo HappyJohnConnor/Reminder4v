@@ -25,7 +25,7 @@ public class ItemListActivity extends AppCompatActivity {
 
     private SQLiteDatabase mDatabase;
     private MyDBHelper mDBHelper;
-    private ReminderRepository mRemiderRepository;
+    private ReminderRepository mReminderRepository;
     public static boolean mTwoPane;
 
 
@@ -50,10 +50,9 @@ public class ItemListActivity extends AppCompatActivity {
 
         View recyclerView = findViewById(R.id.reminderitem_list);
         assert recyclerView != null;
-        /*DummyContent dummyContent = new DummyContent();
-        dummyContent.getDumuyItems();*/
-        mRemiderRepository= new ReminderRepository(this);
-        items =mRemiderRepository.getAllItems();
+
+        mReminderRepository = new ReminderRepository(this);
+        items = mReminderRepository.getAllItems();
         setupRecyclerView((RecyclerView) recyclerView);
 
         if (findViewById(R.id.reminderitem_detail_container) != null) {
@@ -66,11 +65,6 @@ public class ItemListActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        /*for (int i = 0; i < DUMMY_ITEMS.size(); i++) {
-            Log.v(String.valueOf(i), DUMMY_ITEMS.get(i).getSubject());
-            int count;
-
-        }*/
 
         mDBHelper = new MyDBHelper(this);
         mDatabase = mDBHelper.getWritableDatabase();

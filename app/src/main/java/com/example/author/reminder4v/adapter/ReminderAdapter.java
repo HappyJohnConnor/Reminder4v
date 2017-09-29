@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -66,6 +67,8 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderViewHolder> {
                     Context context = v.getContext();
                     Intent intent = new Intent(context, ItemDetailActivity.class);
                     intent.putExtra(ItemDetailFragment.ARG_ITEM_ID, holder.mItem.getId());
+                    Log.v("ID", holder.mItem.getId());
+                    Log.v("subject", holder.mItem.getSubject());
 
                     context.startActivity(intent);
                 }
