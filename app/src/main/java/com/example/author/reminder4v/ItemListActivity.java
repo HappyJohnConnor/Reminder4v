@@ -1,7 +1,6 @@
 package com.example.author.reminder4v;
 
 import android.content.Intent;
-import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -9,7 +8,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 
 import com.example.author.reminder4v.adapter.ReminderAdapter;
@@ -48,38 +46,44 @@ public class ItemListActivity extends AppCompatActivity {
             }
         });
 
-        View recyclerView = findViewById(R.id.reminderitem_list);
+        View recyclerView = findViewById(R.id.item_list);
         assert recyclerView != null;
 
         mReminderRepository = new ReminderRepository(this);
         items = mReminderRepository.getAllItems();
         setupRecyclerView((RecyclerView) recyclerView);
 
-        if (findViewById(R.id.reminderitem_detail_container) != null) {
+        if (findViewById(R.id.item_detail_container) != null) {
             mTwoPane = true;
         }
     }
 
 
-
     @Override
     protected void onResume() {
         super.onResume();
-
         mDBHelper = new MyDBHelper(this);
         mDatabase = mDBHelper.getWritableDatabase();
-        long recodeCount = DatabaseUtils.queryNumEntries(mDatabase, MyDBHelper.TABLE_NAME);
-        Log.d("hoge", "recodeCount : " + recodeCount);
     }
 
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
-
         recyclerView.setAdapter(new ReminderAdapter(items));
     }
 
     private void onAddingBottomPushed() {
-        Intent intent = new Intent(this, ItemDetailActivity.class);
-        this.startActivity(intent);
+        if (mTwoPane) {
+            Bundle arguments = new Bundle();
+            ItemDetailFragment fragment = new ItemDetailFragment();
+            fragment.setArguments(arguments);
+
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.item_detail_container, fragment)
+                    .commit();
+        } else {
+            Intent intent = new Intent(this, ItemDetailActivity.class);
+            //intent.removeExtra(ItemDetailFragment.ARG_ITEM_ID);
+            startActivity(intent);
+        }
 
     }
 

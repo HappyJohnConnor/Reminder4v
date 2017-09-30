@@ -6,15 +6,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.author.reminder4v.ItemDetailActivity;
 import com.example.author.reminder4v.ItemDetailFragment;
 import com.example.author.reminder4v.R;
 import com.example.author.reminder4v.model.ReminderItem;
-import com.example.author.reminder4v.ItemDetailActivity;
 
 import java.util.List;
 
@@ -61,14 +60,12 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderViewHolder> {
                     fragment.setArguments(arguments);
 
                     context.getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.reminderitem_detail_container, fragment)
+                            .replace(R.id.item_detail_container, fragment)
                             .commit();
                 } else {
                     Context context = v.getContext();
                     Intent intent = new Intent(context, ItemDetailActivity.class);
                     intent.putExtra(ItemDetailFragment.ARG_ITEM_ID, holder.mItem.getId());
-                    Log.v("ID", holder.mItem.getId());
-                    Log.v("subject", holder.mItem.getSubject());
 
                     context.startActivity(intent);
                 }

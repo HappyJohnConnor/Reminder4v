@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Reminder4v</string>
     <string name="title_item_detail"></string>
+    <string name="delete_a_item">Delete a item</string>
 </resources>

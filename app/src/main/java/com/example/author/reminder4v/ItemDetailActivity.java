@@ -32,7 +32,7 @@ public class ItemDetailActivity extends AppCompatActivity {
             ItemDetailFragment fragment = new ItemDetailFragment();
             fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.reminderitem_detail_container, fragment)
+                    .add(R.id.item_detail_container, fragment)
                     .commit();
         }
     }

@@ -2,9 +2,13 @@ package com.example.author.reminder4v;
 
 import android.content.ContentValues;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -14,6 +18,8 @@ import com.example.author.reminder4v.database.MyContentProvider;
 import com.example.author.reminder4v.database.MyDBHelper;
 import com.example.author.reminder4v.database.ReminderRepository;
 import com.example.author.reminder4v.model.ReminderItem;
+
+import static android.net.Uri.withAppendedPath;
 
 public class ItemDetailFragment extends Fragment {
 
@@ -38,9 +44,11 @@ public class ItemDetailFragment extends Fragment {
         super.onCreate(savedInstanceState);
         mReminderRepository = new ReminderRepository(getActivity());
         if (getArguments().containsKey(ARG_ITEM_ID)) {
-            mItem = mReminderRepository.getReminderItem(getArguments().getString(ARG_ITEM_ID));
+            if(ARG_ITEM_ID!="item_id") {
+                mItem = mReminderRepository.getReminderItem(getArguments().getString(ARG_ITEM_ID));
+            }
         }
-
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -69,6 +77,24 @@ public class ItemDetailFragment extends Fragment {
         });
         strSubject=subject_edit.getText().toString();
         strBody=body_edit.getText().toString();
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.detail_menu, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.delete_item:
+                Uri uri = withAppendedPath(MyContentProvider.CONTENT_URI, mItem.getId());
+                getActivity().getContentResolver().delete(uri, MyDBHelper.COLUMN_ID + "=" + mItem.getId(), null);
+                getActivity().navigateUpTo(new Intent(getActivity(), ItemListActivity.class));
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void saveItem() {
