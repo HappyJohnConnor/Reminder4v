@@ -24,7 +24,7 @@ import com.example.author.reminder4v.model.ReminderItem;
 
 import static android.net.Uri.withAppendedPath;
 
-public class ItemDetailFragment extends Fragment implements TimePickerDialog.OnTimeSetListener{
+public class ItemDetailFragment extends Fragment implements TimePickerDialog.OnTimeSetListener {
 
     public static final String ARG_ITEM_ID = "item_id";
 
@@ -61,7 +61,7 @@ public class ItemDetailFragment extends Fragment implements TimePickerDialog.OnT
         View rootView = inflater.inflate(R.layout.item_detail, container, false);
         subject_edit = (EditText) rootView.findViewById(R.id.subject_edit);
         body_edit = (EditText) rootView.findViewById(R.id.body_edit);
-        time_text =(TextView) rootView.findViewById(R.id.date_text);
+        time_text = (TextView) rootView.findViewById(R.id.date_text);
         ok_btn = (Button) rootView.findViewById(R.id.ok_btn);
 
         if (mItem != null) {
@@ -83,12 +83,6 @@ public class ItemDetailFragment extends Fragment implements TimePickerDialog.OnT
         strSubject = subject_edit.getText().toString();
         strBody = body_edit.getText().toString();
 
-        time_text.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showTimePickerDialog(view);
-            }
-        });
     }
 
 
@@ -106,16 +100,13 @@ public class ItemDetailFragment extends Fragment implements TimePickerDialog.OnT
                 getActivity().getContentResolver().delete(uri, MyDBHelper.COLUMN_ID + "=" + mItem.getId(), null);
                 getActivity().navigateUpTo(new Intent(getActivity(), ItemListActivity.class));
                 break;
+            case R.id.set_alarm:
+                AlarmTimeFragment alarmTimeFragment = new AlarmTimeFragment(getActivity(), this, 0, 0, false);
+                alarmTimeFragment.show();
         }
         return super.onOptionsItemSelected(item);
     }
 
-
-    public void showTimePickerDialog(View v) {
-        AlarmTimeFragment alarmTimeFragment = new AlarmTimeFragment(getActivity(), this, 0, 0, false);
-        alarmTimeFragment.show();
-
-    }
 
     private void saveItem() {
         if (isEmpty(subject_edit) && isEmpty(body_edit)) {
@@ -138,6 +129,6 @@ public class ItemDetailFragment extends Fragment implements TimePickerDialog.OnT
 
     @Override
     public void onTimeSet(TimePicker view, int hour, int minute) {
-
+        time_text.setText(String.format("%02d:%02d", hour, minute));
     }
 }

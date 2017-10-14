@@ -31,9 +31,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/body_edit"
         android:layout_centerHorizontal="true"
-        android:background="@color/colorPrimary"
-        android:ems="10"
-        android:inputType="date" />
+        android:inputType="time" />
 
     <Button
         android:id="@+id/ok_btn"
