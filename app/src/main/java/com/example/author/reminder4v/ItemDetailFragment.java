@@ -1,5 +1,6 @@
 package com.example.author.reminder4v;
 
+import android.app.TimePickerDialog;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.net.Uri;
@@ -13,6 +14,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.TimePicker;
 
 import com.example.author.reminder4v.database.MyContentProvider;
 import com.example.author.reminder4v.database.MyDBHelper;
@@ -21,13 +24,14 @@ import com.example.author.reminder4v.model.ReminderItem;
 
 import static android.net.Uri.withAppendedPath;
 
-public class ItemDetailFragment extends Fragment {
+public class ItemDetailFragment extends Fragment implements TimePickerDialog.OnTimeSetListener{
 
     public static final String ARG_ITEM_ID = "item_id";
 
     private ReminderItem mItem;
     private EditText subject_edit;
     private EditText body_edit;
+    private TextView time_text;
     private Button ok_btn;
 
     private ReminderRepository mReminderRepository;
@@ -44,7 +48,7 @@ public class ItemDetailFragment extends Fragment {
         super.onCreate(savedInstanceState);
         mReminderRepository = new ReminderRepository(getActivity());
         if (getArguments().containsKey(ARG_ITEM_ID)) {
-            if(ARG_ITEM_ID!="item_id") {
+            if (ARG_ITEM_ID != "item_id") {
                 mItem = mReminderRepository.getReminderItem(getArguments().getString(ARG_ITEM_ID));
             }
         }
@@ -57,6 +61,7 @@ public class ItemDetailFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.item_detail, container, false);
         subject_edit = (EditText) rootView.findViewById(R.id.subject_edit);
         body_edit = (EditText) rootView.findViewById(R.id.body_edit);
+        time_text =(TextView) rootView.findViewById(R.id.date_text);
         ok_btn = (Button) rootView.findViewById(R.id.ok_btn);
 
         if (mItem != null) {
@@ -75,9 +80,17 @@ public class ItemDetailFragment extends Fragment {
                 saveItem();
             }
         });
-        strSubject=subject_edit.getText().toString();
-        strBody=body_edit.getText().toString();
+        strSubject = subject_edit.getText().toString();
+        strBody = body_edit.getText().toString();
+
+        time_text.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showTimePickerDialog(view);
+            }
+        });
     }
+
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -97,11 +110,17 @@ public class ItemDetailFragment extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
+
+    public void showTimePickerDialog(View v) {
+        AlarmTimeFragment alarmTimeFragment = new AlarmTimeFragment(getActivity(), this, 0, 0, false);
+        alarmTimeFragment.show();
+
+    }
+
     private void saveItem() {
         if (isEmpty(subject_edit) && isEmpty(body_edit)) {
             getActivity().navigateUpTo(new Intent(getActivity(), ItemListActivity.class));
-
-        } {
+        } else {
             ContentValues contentValues = new ContentValues();
             contentValues.put(MyDBHelper.COLUMN_SUBJECT, subject_edit.getText().toString());
             contentValues.put(MyDBHelper.COLUMN_BODY, body_edit.getText().toString());
@@ -114,7 +133,11 @@ public class ItemDetailFragment extends Fragment {
     private boolean isEmpty(EditText etText) {
         if (etText.getText().toString().trim().length() > 0)
             return false;
-
         return true;
+    }
+
+    @Override
+    public void onTimeSet(TimePicker view, int hour, int minute) {
+
     }
 }
