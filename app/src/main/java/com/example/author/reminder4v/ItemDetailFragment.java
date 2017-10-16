@@ -27,6 +27,7 @@ import static android.net.Uri.withAppendedPath;
 public class ItemDetailFragment extends Fragment implements TimePickerDialog.OnTimeSetListener {
 
     public static final String ARG_ITEM_ID = "item_id";
+    private static final String TAG_DIALOG_FRAGMENT = "dialog_fragment";
 
     private ReminderItem mItem;
     private EditText subject_edit;
@@ -35,6 +36,7 @@ public class ItemDetailFragment extends Fragment implements TimePickerDialog.OnT
     private Button ok_btn;
 
     private ReminderRepository mReminderRepository;
+    private RemindSetDialogFragment mRemindSetDialogFragment;
 
     private String strSubject;
     private String strBody;
@@ -101,8 +103,10 @@ public class ItemDetailFragment extends Fragment implements TimePickerDialog.OnT
                 getActivity().navigateUpTo(new Intent(getActivity(), ItemListActivity.class));
                 break;
             case R.id.set_alarm:
-                AlarmTimeFragment alarmTimeFragment = new AlarmTimeFragment(getActivity(), this, 0, 0, false);
-                alarmTimeFragment.show();
+                RemindSetDialogFragment dialog=RemindSetDialogFragment.newInstance(ItemDetailFragment.this);
+                dialog.show(getFragmentManager(), TAG_DIALOG_FRAGMENT);
+                //AlarmTimeFragment alarmTimeFragment = new AlarmTimeFragment(getActivity(), this, 0, 0, false);
+                //alarmTimeFragment.show();
         }
         return super.onOptionsItemSelected(item);
     }

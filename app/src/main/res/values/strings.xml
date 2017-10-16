@@ -3,4 +3,18 @@
     <string name="title_item_detail"></string>
     <string name="delete_a_item">Delete a item</string>
     <string name="set_alarm">Set Alarm</string>
+    <string name="edit_of_reminder">リマインダーの編集</string>
+
+    <string-array name="date_list">
+        <item>今日</item>
+        <item>明日</item>
+        <item>日付を選択</item>
+    </string-array>
+
+    <string-array name="time_list">
+        <item>午前</item>
+        <item>午後</item>
+        <item>夕方</item>
+        <item>時間を選択</item>
+    </string-array>
 </resources>
