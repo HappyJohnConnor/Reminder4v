@@ -15,12 +15,14 @@ public class MyDBHelper extends SQLiteOpenHelper {
     public static final String COLUMN_ID = "_id";
     public static final String COLUMN_SUBJECT = "title";
     public static final String COLUMN_BODY = "body";
+    public static final String COLUMN_DATE = "date";
 
     private static final String CREATE_TABLE_SQL =
             "create table " + TABLE_NAME + " "
                     + "(" + COLUMN_ID + " integer primary key autoincrement,"
                     + COLUMN_SUBJECT + " text not null,"
-                    + COLUMN_BODY + " text not null)";
+                    + COLUMN_BODY + " text not null,"
+                    + COLUMN_DATE + ")";
 
     public MyDBHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
@@ -33,7 +35,7 @@ public class MyDBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-    }
 
+    }
 
 }

@@ -119,6 +119,7 @@ public class ItemDetailFragment extends Fragment implements TimePickerDialog.OnT
             ContentValues contentValues = new ContentValues();
             contentValues.put(MyDBHelper.COLUMN_SUBJECT, subject_edit.getText().toString());
             contentValues.put(MyDBHelper.COLUMN_BODY, body_edit.getText().toString());
+            contentValues.putNull(MyDBHelper.COLUMN_DATE);
             getActivity().getContentResolver().insert(MyContentProvider.CONTENT_URI, contentValues);
             getActivity().navigateUpTo(new Intent(getActivity(), ItemListActivity.class));
         }

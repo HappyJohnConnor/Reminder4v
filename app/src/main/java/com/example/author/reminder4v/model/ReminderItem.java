@@ -9,6 +9,7 @@ public class ReminderItem {
     private String subject;
     private String body;
     private String id;
+    private boolean hasRemind;
 
     public ReminderItem(String subject, String body,String id) {
         this.subject = subject;
@@ -28,6 +29,9 @@ public class ReminderItem {
         this.id = id;
     }
 
+    public void setHasRemind(boolean hasRemind) {
+        this.hasRemind = hasRemind;
+    }
     public String getSubject() {
         return subject;
     }
@@ -38,5 +42,9 @@ public class ReminderItem {
 
     public String getId() {
         return id;
+    }
+
+    public boolean isHasRemind() {
+        return hasRemind;
     }
 }
