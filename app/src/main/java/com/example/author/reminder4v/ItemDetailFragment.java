@@ -32,7 +32,6 @@ public class ItemDetailFragment extends Fragment implements TimePickerDialog.OnT
     private ReminderItem mItem;
     private EditText subject_edit;
     private EditText body_edit;
-    private TextView time_text;
     private Button ok_btn;
 
     private ReminderRepository mReminderRepository;
@@ -63,7 +62,6 @@ public class ItemDetailFragment extends Fragment implements TimePickerDialog.OnT
         View rootView = inflater.inflate(R.layout.item_detail, container, false);
         subject_edit = (EditText) rootView.findViewById(R.id.subject_edit);
         body_edit = (EditText) rootView.findViewById(R.id.body_edit);
-        time_text = (TextView) rootView.findViewById(R.id.date_text);
         ok_btn = (Button) rootView.findViewById(R.id.ok_btn);
 
         if (mItem != null) {
@@ -103,7 +101,7 @@ public class ItemDetailFragment extends Fragment implements TimePickerDialog.OnT
                 getActivity().navigateUpTo(new Intent(getActivity(), ItemListActivity.class));
                 break;
             case R.id.set_alarm:
-                RemindSetDialogFragment dialog=RemindSetDialogFragment.newInstance(ItemDetailFragment.this);
+                RemindSetDialogFragment dialog=RemindSetDialogFragment.newInstance();
                 dialog.show(getFragmentManager(), TAG_DIALOG_FRAGMENT);
                 //AlarmTimeFragment alarmTimeFragment = new AlarmTimeFragment(getActivity(), this, 0, 0, false);
                 //alarmTimeFragment.show();
@@ -133,7 +131,7 @@ public class ItemDetailFragment extends Fragment implements TimePickerDialog.OnT
     }
 
     @Override
-    public void onTimeSet(TimePicker view, int hour, int minute) {
-        time_text.setText(String.format("%02d:%02d", hour, minute));
+    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+
     }
 }
