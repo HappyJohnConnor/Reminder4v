@@ -12,17 +12,19 @@ public class MyDBHelper extends SQLiteOpenHelper {
     private static final String DB_NAME = "reminder.db";
     private static final int DB_VERSION = 1;
     public static final String TABLE_NAME = "reminder_record";
-    public static final String COLUMN_ID = "_id";
-    public static final String COLUMN_SUBJECT = "title";
-    public static final String COLUMN_BODY = "body";
-    public static final String COLUMN_DATE = "date";
+    public static final String COL_ID = "_id";
+    public static final String COL_SUBJECT = "title";
+    public static final String COL_BODY = "body";
+    public static final String COL_HAS_REMIND = "has_remind";
+    public static final String COL_DATE = "date";
 
     private static final String CREATE_TABLE_SQL =
             "create table " + TABLE_NAME + " "
-                    + "(" + COLUMN_ID + " integer primary key autoincrement,"
-                    + COLUMN_SUBJECT + " text not null,"
-                    + COLUMN_BODY + " text not null,"
-                    + COLUMN_DATE + ")";
+                    + "(" + COL_ID + " integer primary key autoincrement,"
+                    + COL_SUBJECT + " text not null,"
+                    + COL_BODY + " text not null,"
+                    + COL_HAS_REMIND + " integer default 0,"
+                    + COL_DATE + " integer)";
 
     public MyDBHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);

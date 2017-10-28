@@ -1,5 +1,7 @@
 package com.example.author.reminder4v.model;
 
+import java.time.LocalDateTime;
+
 /**
  * Created by author on 2017/09/24.
  */
@@ -10,11 +12,13 @@ public class ReminderItem {
     private String body;
     private String id;
     private boolean hasRemind;
+    private LocalDateTime dateTime;
 
-    public ReminderItem(String subject, String body,String id) {
+    public ReminderItem(String subject, String body,String id, boolean hasRemind) {
         this.subject = subject;
         this.body = body;
         this.id = id;
+        this.hasRemind=hasRemind;
     }
 
     public void setSubject(String subject) {

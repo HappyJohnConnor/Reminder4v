@@ -40,16 +40,17 @@ public class ReminderRepository {
     }
 
     public ReminderItem getReminderItem(Cursor cursor) {
-        String id = cursor.getString(cursor.getColumnIndex(MyDBHelper.COLUMN_ID));
-        String subject = cursor.getString(cursor.getColumnIndex(MyDBHelper.COLUMN_SUBJECT));
-        String body = cursor.getString(cursor.getColumnIndex(MyDBHelper.COLUMN_BODY));
+        String id = cursor.getString(cursor.getColumnIndex(MyDBHelper.COL_ID));
+        String subject = cursor.getString(cursor.getColumnIndex(MyDBHelper.COL_SUBJECT));
+        String body = cursor.getString(cursor.getColumnIndex(MyDBHelper.COL_BODY));
+        Boolean hasRemind=(cursor.getInt(cursor.getColumnIndex(MyDBHelper.COL_HAS_REMIND))==1);
 
-        ReminderItem item = new ReminderItem(subject, body, id);
+        ReminderItem item = new ReminderItem(subject, body, id, hasRemind);
         return item;
     }
 
     public ReminderItem getReminderItem(String id){
-        Cursor cursor= queryReminders(MyDBHelper.COLUMN_ID+"=?", new String[]{id});
+        Cursor cursor= queryReminders(MyDBHelper.COL_ID +"=?", new String[]{id});
 
         try{
             if (cursor.getCount()==0){

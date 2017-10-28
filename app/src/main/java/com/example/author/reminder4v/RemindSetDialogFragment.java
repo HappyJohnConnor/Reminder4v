@@ -2,15 +2,17 @@ package com.example.author.reminder4v;
 
 import android.app.Dialog;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.Spinner;
 
-public class RemindSetDialogFragment extends DialogFragment {
+public class RemindSetDialogFragment extends DialogFragment implements AdapterView.OnItemSelectedListener{
 
     Dialog dialog;
     Spinner dateSpinner;
@@ -43,15 +45,27 @@ public class RemindSetDialogFragment extends DialogFragment {
                 WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN);
         dialog.setContentView(v);
         dialog.setTitle(R.string.edit_of_reminder);
+
+        dateSpinner.setOnItemSelectedListener(this);
+        timeSpinner.setOnItemSelectedListener(this);
         return dialog;
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-
-        return super.onCreateView(inflater, container, savedInstanceState);
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
     }
 
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        Log.v("datespin", String.valueOf(dateSpinner.getSelectedItemPosition()));
+        switch (dateSpinner.getSelectedItemPosition()){
+        }
 
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
 }

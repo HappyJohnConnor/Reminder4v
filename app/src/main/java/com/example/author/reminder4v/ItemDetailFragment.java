@@ -14,7 +14,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.example.author.reminder4v.database.MyContentProvider;
@@ -97,7 +96,7 @@ public class ItemDetailFragment extends Fragment implements TimePickerDialog.OnT
         switch (item.getItemId()) {
             case R.id.delete_item:
                 Uri uri = withAppendedPath(MyContentProvider.CONTENT_URI, mItem.getId());
-                getActivity().getContentResolver().delete(uri, MyDBHelper.COLUMN_ID + "=" + mItem.getId(), null);
+                getActivity().getContentResolver().delete(uri, MyDBHelper.COL_ID + "=" + mItem.getId(), null);
                 getActivity().navigateUpTo(new Intent(getActivity(), ItemListActivity.class));
                 break;
             case R.id.set_alarm:
@@ -115,9 +114,9 @@ public class ItemDetailFragment extends Fragment implements TimePickerDialog.OnT
             getActivity().navigateUpTo(new Intent(getActivity(), ItemListActivity.class));
         } else {
             ContentValues contentValues = new ContentValues();
-            contentValues.put(MyDBHelper.COLUMN_SUBJECT, subject_edit.getText().toString());
-            contentValues.put(MyDBHelper.COLUMN_BODY, body_edit.getText().toString());
-            contentValues.putNull(MyDBHelper.COLUMN_DATE);
+            contentValues.put(MyDBHelper.COL_SUBJECT, subject_edit.getText().toString());
+            contentValues.put(MyDBHelper.COL_BODY, body_edit.getText().toString());
+            contentValues.putNull(MyDBHelper.COL_DATE);
             getActivity().getContentResolver().insert(MyContentProvider.CONTENT_URI, contentValues);
             getActivity().navigateUpTo(new Intent(getActivity(), ItemListActivity.class));
         }

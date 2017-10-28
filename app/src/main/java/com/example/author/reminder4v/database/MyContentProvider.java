@@ -51,7 +51,7 @@ public class MyContentProvider extends ContentProvider {
             case REMINDER_RECORD:
                 break;
             case REMINDER_RECORD_ID:
-                queryBuilder.appendWhere(MyDBHelper.COLUMN_ID + "=" + uri.getLastPathSegment());
+                queryBuilder.appendWhere(MyDBHelper.COL_ID + "=" + uri.getLastPathSegment());
                 break;
             default:
                 throw new IllegalArgumentException("Unknown URI: " + uri);
