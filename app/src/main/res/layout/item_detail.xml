@@ -31,6 +31,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/body_edit"
         android:layout_centerHorizontal="true"
+        android:background="@android:color/darker_gray"
         android:inputType="time" />
 
     <Button

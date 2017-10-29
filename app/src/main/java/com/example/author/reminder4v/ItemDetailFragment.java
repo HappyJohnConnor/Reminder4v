@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -49,6 +50,7 @@ public class ItemDetailFragment extends Fragment implements TimePickerDialog.OnT
         mReminderRepository = new ReminderRepository(getActivity());
         if (getArguments().containsKey(ARG_ITEM_ID)) {
             if (ARG_ITEM_ID != "item_id") {
+                Log.v("come", "something");
                 mItem = mReminderRepository.getReminderItem(getArguments().getString(ARG_ITEM_ID));
             }
         }
@@ -100,7 +102,7 @@ public class ItemDetailFragment extends Fragment implements TimePickerDialog.OnT
                 getActivity().navigateUpTo(new Intent(getActivity(), ItemListActivity.class));
                 break;
             case R.id.set_alarm:
-                RemindSetDialogFragment dialog=RemindSetDialogFragment.newInstance();
+                RemindSetDialogFragment dialog=RemindSetDialogFragment.newInstance(ARG_ITEM_ID);
                 dialog.show(getFragmentManager(), TAG_DIALOG_FRAGMENT);
                 //AlarmTimeFragment alarmTimeFragment = new AlarmTimeFragment(getActivity(), this, 0, 0, false);
                 //alarmTimeFragment.show();

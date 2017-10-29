@@ -81,14 +81,9 @@ public class ItemListActivity extends AppCompatActivity {
                     .commit();
         } else {
             Intent intent = new Intent(this, ItemDetailActivity.class);
-            //intent.removeExtra(ItemDetailFragment.ARG_ITEM_ID);
             startActivity(intent);
         }
 
     }
 
 }
-/*
-@Override
-public String toString() {
-        return super.toString() + " '" + mContentView.getText() + "'";*/
