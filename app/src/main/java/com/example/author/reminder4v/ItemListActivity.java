@@ -12,7 +12,7 @@ import android.view.View;
 
 import com.example.author.reminder4v.adapter.ReminderAdapter;
 import com.example.author.reminder4v.database.MyDBHelper;
-import com.example.author.reminder4v.database.ReminderRepository;
+import com.example.author.reminder4v.model.ReminderRepository;
 import com.example.author.reminder4v.model.ReminderItem;
 
 import java.util.ArrayList;
@@ -67,7 +67,7 @@ public class ItemListActivity extends AppCompatActivity {
     }
 
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
-        recyclerView.setAdapter(new ReminderAdapter(items));
+        recyclerView.setAdapter(new ReminderAdapter(this, items));
     }
 
     private void onAddingBottomPushed() {

@@ -1,4 +1,4 @@
-package com.example.author.reminder4v.database;
+package com.example.author.reminder4v.model;
 
 import android.content.ContentProvider;
 import android.content.ContentValues;
@@ -11,13 +11,15 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+import com.example.author.reminder4v.database.MyDBHelper;
+
 /**
  * Created by author on 2017/09/25.
  */
 
 public class MyContentProvider extends ContentProvider {
     private MyDBHelper mDBHelper;
-    private static final String AUTHORITY = "com.example.author.reminder4v.database.MyContentProvider";
+    private static final String AUTHORITY = "com.example.author.reminder4v.model.MyContentProvider";
 
     private static final int REMINDER_RECORD = 10;
     private static final int REMINDER_RECORD_ID = 20;

@@ -17,9 +17,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TimePicker;
 
-import com.example.author.reminder4v.database.MyContentProvider;
+import com.example.author.reminder4v.model.MyContentProvider;
 import com.example.author.reminder4v.database.MyDBHelper;
-import com.example.author.reminder4v.database.ReminderRepository;
+import com.example.author.reminder4v.model.ReminderRepository;
 import com.example.author.reminder4v.model.ReminderItem;
 
 import static android.net.Uri.withAppendedPath;

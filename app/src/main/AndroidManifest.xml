@@ -30,8 +30,8 @@
         </activity>
 
         <provider
-            android:name=".database.MyContentProvider"
-            android:authorities="com.example.author.reminder4v.database.MyContentProvider"
+            android:name=".model.MyContentProvider"
+            android:authorities="com.example.author.reminder4v.model.MyContentProvider"
             android:exported="false"></provider>
     </application>
 

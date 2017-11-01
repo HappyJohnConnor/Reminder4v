@@ -12,7 +12,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.Spinner;
 
-import com.example.author.reminder4v.database.ReminderRepository;
+import com.example.author.reminder4v.model.ReminderRepository;
 import com.example.author.reminder4v.model.ReminderItem;
 
 import static com.example.author.reminder4v.ItemDetailFragment.ARG_ITEM_ID;

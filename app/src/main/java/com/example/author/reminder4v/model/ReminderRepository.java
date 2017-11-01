@@ -1,10 +1,10 @@
-package com.example.author.reminder4v.database;
+package com.example.author.reminder4v.model;
 
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.example.author.reminder4v.model.ReminderItem;
+import com.example.author.reminder4v.database.MyDBHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,13 +14,23 @@ import java.util.List;
  */
 
 public class ReminderRepository {
+    private static ReminderRepository instance;
     private Context mContext;
     private SQLiteDatabase mDatabase;
 
 
     public ReminderRepository(Context context) {
-        this.mContext = context.getApplicationContext();
+        mContext = context.getApplicationContext();
         mDatabase = new MyDBHelper(mContext).getReadableDatabase();
+    }
+
+    public static ReminderRepository getInstance(Context context){
+        if(instance!=null){
+            return instance;
+        } else {
+            instance=new ReminderRepository(context);
+            return instance;
+        }
     }
 
     public List<ReminderItem> getAllItems() {
