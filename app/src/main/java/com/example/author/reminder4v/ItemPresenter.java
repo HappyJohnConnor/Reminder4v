@@ -2,8 +2,8 @@ package com.example.author.reminder4v;
 
 import android.content.Context;
 
-import com.example.author.reminder4v.model.ReminderRepository;
 import com.example.author.reminder4v.model.ReminderItem;
+import com.example.author.reminder4v.model.ReminderRepository;
 
 /**
  * Created by author on 2017/10/31.
@@ -11,7 +11,6 @@ import com.example.author.reminder4v.model.ReminderItem;
 
 public class ItemPresenter {
     private ReminderRepository mReminderRepositroy;
-    private Context mContext;
 
     public ItemPresenter(Context context) {
         mReminderRepositroy= ReminderRepository.getInstance(context);

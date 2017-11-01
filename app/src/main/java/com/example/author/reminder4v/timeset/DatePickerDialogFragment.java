@@ -1,4 +1,4 @@
-package com.example.author.reminder4v;
+package com.example.author.reminder4v.timeset;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
