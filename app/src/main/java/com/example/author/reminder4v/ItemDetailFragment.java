@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -17,14 +16,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TimePicker;
 
-import com.example.author.reminder4v.model.MyContentProvider;
+import com.example.author.reminder4v.database.MyContentProvider;
 import com.example.author.reminder4v.database.MyDBHelper;
-import com.example.author.reminder4v.model.ReminderRepository;
 import com.example.author.reminder4v.model.ReminderItem;
+import com.example.author.reminder4v.model.ReminderRepository;
 
 import static android.net.Uri.withAppendedPath;
 
 public class ItemDetailFragment extends Fragment implements TimePickerDialog.OnTimeSetListener {
+    private final static String TAG = ItemDetailFragment.class.getSimpleName();
 
     public static final String ARG_ITEM_ID = "item_id";
     private static final String TAG_DIALOG_FRAGMENT = "dialog_fragment";
@@ -47,13 +47,16 @@ public class ItemDetailFragment extends Fragment implements TimePickerDialog.OnT
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mReminderRepository = new ReminderRepository(getActivity());
+        mReminderRepository = ReminderRepository.getInstance(getContext());
+
+        //ARG自体がそもそもない
+        //でもsavedInstanceはnull
         if (getArguments().containsKey(ARG_ITEM_ID)) {
-            if (ARG_ITEM_ID != "item_id") {
-                Log.v("come", "something");
+            if(getArguments().getString(ARG_ITEM_ID)!="new") {
                 mItem = mReminderRepository.getReminderItem(getArguments().getString(ARG_ITEM_ID));
             }
         }
+
         setHasOptionsMenu(true);
     }
 
@@ -68,6 +71,11 @@ public class ItemDetailFragment extends Fragment implements TimePickerDialog.OnT
         if (mItem != null) {
             subject_edit.setText(mItem.getSubject());
             body_edit.setText(mItem.getBody());
+            if (mItem.isHasRemind()) {
+                //todo 時間をゲットしてセット
+                //integerを時間に変換
+
+            }
         }
         return rootView;
     }
@@ -102,10 +110,9 @@ public class ItemDetailFragment extends Fragment implements TimePickerDialog.OnT
                 getActivity().navigateUpTo(new Intent(getActivity(), ItemListActivity.class));
                 break;
             case R.id.set_alarm:
-                RemindSetDialogFragment dialog=RemindSetDialogFragment.newInstance(ARG_ITEM_ID);
+                RemindSetDialogFragment dialog = RemindSetDialogFragment.newInstance(ARG_ITEM_ID);
                 dialog.show(getFragmentManager(), TAG_DIALOG_FRAGMENT);
-                //AlarmTimeFragment alarmTimeFragment = new AlarmTimeFragment(getActivity(), this, 0, 0, false);
-                //alarmTimeFragment.show();
+                break;
         }
         return super.onOptionsItemSelected(item);
     }

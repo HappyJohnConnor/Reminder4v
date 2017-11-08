@@ -24,6 +24,7 @@ import java.util.List;
 
 
 public class ItemListActivity extends AppCompatActivity {
+    private final static String TAG = ItemListActivity.class.getSimpleName();
 
     private SQLiteDatabase mDatabase;
     private MyDBHelper mDBHelper;
@@ -74,10 +75,7 @@ public class ItemListActivity extends AppCompatActivity {
 
     private void onAddingBottomPushed() {
         if (mTwoPane) {
-            Bundle arguments = new Bundle();
             ItemDetailFragment fragment = new ItemDetailFragment();
-            fragment.setArguments(arguments);
-
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.item_detail_container, fragment)
                     .commit();
@@ -143,10 +141,23 @@ public class ItemListActivity extends AppCompatActivity {
                 Context context = v.getContext();
                 mItemPresenter=new ItemPresenter(context);
                 ReminderItem item=  mItemPresenter.getItemAt(getAdapterPosition());
-                Intent intent = new Intent(context, ItemDetailActivity.class);
-                intent.putExtra(ItemDetailFragment.ARG_ITEM_ID, item.getId());
-                Log.v("came", item.getId());
-                context.startActivity(intent);
+
+                if (mTwoPane) {
+                    Bundle arguments = new Bundle();
+                    arguments.putString(ItemDetailFragment.ARG_ITEM_ID, item.getId());
+                    ItemDetailFragment fragment = new ItemDetailFragment();
+                    fragment.setArguments(arguments);
+                    mParentActivity.getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.item_detail_container, fragment)
+                            .commit();
+                } else {
+                    Log.d(TAG, "come here");
+                    Intent intent = new Intent(context, ItemDetailActivity.class);
+                    intent.putExtra(ItemDetailFragment.ARG_ITEM_ID, item.getId());
+
+                    context.startActivity(intent);
+                }
+
             }
         }
 

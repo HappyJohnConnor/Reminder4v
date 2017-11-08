@@ -5,9 +5,11 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 
 public class ItemDetailActivity extends AppCompatActivity {
+    private final static String TAG = ItemDetailActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,18 +26,25 @@ public class ItemDetailActivity extends AppCompatActivity {
 
 
         if (savedInstanceState == null) {
-            // Create the detail fragment and add it to the activity
-            // using a fragment transaction.
-            Bundle arguments = new Bundle();
-            arguments.putString(ItemDetailFragment.ARG_ITEM_ID,
-                    getIntent().getStringExtra(ItemDetailFragment.ARG_ITEM_ID));
             ItemDetailFragment fragment = new ItemDetailFragment();
+            Bundle arguments = new Bundle();
+            if (getIntent().getStringExtra(ItemDetailFragment.ARG_ITEM_ID) != null) {
+                Log.d(TAG, "come here");
+                arguments.putString(ItemDetailFragment.ARG_ITEM_ID,
+                        getIntent().getStringExtra(ItemDetailFragment.ARG_ITEM_ID));
+
+            } else {
+                arguments.putString(ItemDetailFragment.ARG_ITEM_ID,
+                        "new");
+            }
             fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.item_detail_container, fragment)
                     .commit();
         }
+
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -47,7 +56,6 @@ public class ItemDetailActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
 
 
 }

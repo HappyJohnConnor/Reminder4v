@@ -3,6 +3,7 @@ package com.example.author.reminder4v.model;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.example.author.reminder4v.database.MyDBHelper;
 
@@ -14,6 +15,7 @@ import java.util.List;
  */
 
 public class ReminderRepository {
+    private final static String TAG = ReminderRepository.class.getSimpleName();
     private static ReminderRepository instance;
     private Context mContext;
     private SQLiteDatabase mDatabase;
@@ -67,6 +69,7 @@ public class ReminderRepository {
                 return null;
             }else {
                 cursor.moveToFirst();
+                Log.v("success", "success");
                 return getReminderItem(cursor);
             }
         }finally {
