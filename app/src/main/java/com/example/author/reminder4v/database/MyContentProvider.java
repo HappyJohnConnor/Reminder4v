@@ -100,7 +100,23 @@ public class MyContentProvider extends ContentProvider {
 
     @Override
     public int update(@NonNull Uri uri, @Nullable ContentValues values, @Nullable String selection, @Nullable String[] selectionArgs) {
-        return 0;
+        int count = 0;
+        switch (uriMatcher.match(uri)) {
+            case REMINDER_RECORD:
+                count = mDatabase.update(MyDBHelper.TABLE_NAME, values, selection, selectionArgs);
+                break;
+
+            case REMINDER_RECORD_ID:
+                count = mDatabase.update(MyDBHelper.TABLE_NAME, values,
+                        MyDBHelper.COL_ID+" = ?",
+                        new String[]{uri.getLastPathSegment()});
+                break;
+            default:
+                throw new IllegalArgumentException("Unknown URI " + uri );
+        }
+
+        getContext().getContentResolver().notifyChange(uri, null);
+        return count;
     }
 
 

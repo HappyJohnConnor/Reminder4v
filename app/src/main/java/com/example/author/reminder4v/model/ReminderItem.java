@@ -21,6 +21,9 @@ public class ReminderItem {
         this.hasRemind=hasRemind;
     }
 
+    public ReminderItem() {
+    }
+
     public void setSubject(String subject) {
         this.subject = subject;
     }
